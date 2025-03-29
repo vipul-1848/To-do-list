@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List - Add Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+        }
+        input[type="text"], textarea {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>To-Do List</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="homefortodolist.html">Home</a></li>
+            <li><a href="addtask.html">Add Task</a></li>
+            <li><a href="seetodolist.html">View Tasks</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Add a New Task</h2>
+        <form id="add-task-form">
+            <label for="task-name">Task Name:</label>
+            <input type="text" id="task-name" required>
+            <label for="task-description">Description:</label>
+            <textarea id="task-description"></textarea>
+            <button type="submit">Add Task</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('add-task-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const taskName = document.getElementById('task-name').value;
+            const taskDescription = document.getElementById('task-description').value;
+            
+            const newTask = {
+                id: Date.now(),
+                name: taskName,
+                description: taskDescription,
+                completed: false
+            };
+            
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            
+            document.getElementById('add-task-form').reset();
+            alert('Task added successfully!');
+        });
+    </script>
+</body>
+</html>
